@@ -1,0 +1,38 @@
+html,body{
+    height: 100%;
+}
+
+.line {
+    height: 1px;
+    width: 100%;
+    background-color: #000;
+}
+
+/* masonry */
+
+.grid {
+    margin: 0 auto;
+}
+
+.grid-item { 
+    width: 200px;
+    height: 260px;
+    margin-bottom: 20px;
+}
+.grid-item-h-3 { height: 360px; }
+.grid-item-h-4 { height: 460px; }
+
+
+/* card icon */
+.cardIcon{
+    width: 2.2rem;
+    height: 2.2rem;
+    background-color: #fff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
