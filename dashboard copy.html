@@ -59,7 +59,7 @@
     </div>
     <div class="line"></div>
     <!-- side-nav-bar -->
-    <!-- <div class="container d-lg-block d-none" style="margin-top: calc(5rem - 56px);">
+    <div class="container d-lg-block d-none" style="margin-top: calc(5rem - 56px);">
       <div class="row">
         <div class="col-2 vh-100 border-right">
           <div class="row flex-column">
@@ -69,17 +69,12 @@
           </div>
         </div>
       </div>
-    </div> -->
+    </div>
   </div>
   <!-- content -->
-  <div class="container" style="margin-top: 5rem;">
+  <div class="container" style="margin-top: 5rem; ">
     <div class="row">
       <div class="col-2 d-lg-block d-none">
-        <div class="row flex-column">
-          <a href="#" class="col py-2 text-reset mywork">作品</a>
-          <a href="#" class="col py-2 text-reset mypage">我的主頁</a>
-          <a href="#" class="col py-2 text-reset setting">設定</a>
-        </div>
       </div>
       <div class="col-lg-10 col-12" id="main">
         <div class="card-deck mb-4">
@@ -169,30 +164,30 @@
   <script src="./js/popper.min.js"></script>
   <script src="./js/bootstrap.min.js"></script>
   <script>
-    // ajax
-    function showData(nav){
-      $.get('dashboard_api.php?nav='+nav,function(e){
-          $('#main').html(e)
-        })
-    }
-
-    $('.mywork').on('click',(e)=>{
-      e.preventDefault();
-      showData('mywork');
+  // ajax
+  $('.mywork').on('click',(e)=>{
+    e.preventDefault();
+    $.get('dashboard_api.php?nav=mywork',function(e){
+      $('#main').html(e)
     })
+  })
 
-    $('.mypage').on('click',(e)=>{
-      e.preventDefault();
-      showData('mypage');
+  $('.mypage').on('click',(e)=>{
+    e.preventDefault();
+    $.get('dashboard_api.php?nav=mypage',function(e){
+      $('#main').html(e)
     })
+  })
 
-    $('.setting').on('click',(e)=>{
-      e.preventDefault();
-      showData('setting');
+  $('.setting').on('click',(e)=>{
+    e.preventDefault();
+    $.get('dashboard_api.php?nav=setting',function(e){
+      $('#main').html(e)
     })
+  })
 
-    showData('mywork');
-
+  // model
+  $('#exampleModalCenter').modal(options)
 
   </script>
 </body>
