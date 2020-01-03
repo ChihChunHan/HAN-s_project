@@ -81,98 +81,29 @@
           <a href="#" class="col py-2 text-reset setting">設定</a>
         </div>
       </div>
-      <div class="col-lg-10 col-12" id="main">
-        <div class="card-deck mb-4">
-          <div class="card">
-            <img src="https://picsum.photos/300/300/?random=1" class="card-img-top">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
-          </div>
-          <div class="card">
-            <img src="https://picsum.photos/300/300/?random=2" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
-          </div>
-          <div class="card">
-            <img src="https://picsum.photos/300/300/?random=3" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
-          </div>
-        </div>
-        <div class="card-deck mb-4">
-          <div class="card">
-            <img src="https://picsum.photos/300/300/?random=3" class="card-img-top">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
-          </div>
-          <div class="card">
-            <img src="https://picsum.photos/300/300/?random=4" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
-          </div>
-          <div class="card">
-            <img src="https://picsum.photos/300/300/?random=5" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
-          </div>
-        </div>
-        <div class="card-deck mb-4">
-          <div class="card">
-            <img src="https://picsum.photos/300/300/?random=6" class="card-img-top">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
-          </div>
-          <div class="card">
-            <img src="https://picsum.photos/300/300/?random=7" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
-          </div>
-          <div class="card">
-            <img src="https://picsum.photos/300/300/?random=8" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
-          </div>
-        </div>
+      <div class="col-lg-10 col-12 h-100" id="main">
       </div>
     </div>
   </div>
+
+  <div class="test"></div>
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="./js/jquery-3.4.1.min.js"></script>
   <script src="./js/popper.min.js"></script>
   <script src="./js/bootstrap.min.js"></script>
   <script>
+    $(document).ready(()=>{
+      showData('mywork');
+      // adjustImg()
+    })
+
     // ajax
     function showData(nav){
       $.get('dashboard_api.php?nav='+nav,function(e){
           $('#main').html(e)
+          adjustImg()
+
         })
     }
 
@@ -191,8 +122,20 @@
       showData('setting');
     })
 
-    showData('mywork');
 
+
+    // 卡片圖片符合長寬
+
+    function adjustImg(){
+      console.log(1)
+      let cimg = $('.card>img')
+      // let cw = cimg[0].width;
+      for (let i = 0; i < $('.card>img').length; i++) {
+        cimg[i].height = cimg[i].width;
+      }
+    }
+
+    $(window).resize(adjustImg)
 
   </script>
 </body>
