@@ -17,14 +17,14 @@ switch ($_GET['nav']) {
             <div class="card border-0 shadow">
                 <img src="'.$row['img'].'" class=" card-img-top card-img-size" style="object-fit:cover">
                 <div class="card-body">
-                    <h5 class="card-title" style="font-size: 1rem;">'.$row['title'].'</h5>
-                    <p>';
+                    <h5 class="card-title text-truncate" style="font-size: 1rem;">'.$row['title'].'</h5>
+                    <p class="text-truncate">';
             foreach ($tags as $tag) {  // 輸出tag
                 echo '<span class="badge badge-secondary mr-1">'.$tag.'</span>';
             }
             echo '
                     </p>
-                    <p class="card-text" style="font-size: 0.8rem;">'.$row['content'].'</p>
+                    <p class="card-text text-truncate" style="font-size: 0.8rem;">'.$row['content'].'</p>
                     <p class="card-text"><small class="text-muted">'.$row['date'].'</small></p>
                 </div>
             </div>';
@@ -32,7 +32,7 @@ switch ($_GET['nav']) {
             echo '
             </a>
 
-            <div class="modal" id="c'.$row['id'].'" tabindex="-1" style="background-color:rgb(255,255,255,0.7)">
+            <div class="modal fade" id="c'.$row['id'].'" tabindex="-1" style="background-color:rgb(255,255,255,0.7)">
             <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content border-0 shadow">
                 <div class="modal-header">
@@ -42,7 +42,6 @@ switch ($_GET['nav']) {
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
                     <div class="container-fluid">
                         <div class="row">
                         <div class="col-md-6 col-12">
@@ -55,10 +54,10 @@ switch ($_GET['nav']) {
                             </div>
                             <div class="form-group">
                                 <label>tag</label>
-                                <input type="text" class="form-control">
-                                <small class="form-text text-muted">';
+                                <input type="text" class="form-control new_tag">
+                                <small class="form-text text-muted tagzone">';
                                 foreach ($tags as $tag) {  // 輸出tag
-                                    echo '<span class="badge badge-secondary mr-1">'.$tag.'<a href="#" class="text-reset">&times;</a></span>';
+                                    echo '<span class="badge badge-secondary mr-1"><span>'.$tag.'</span><a href="#" class="text-reset text-decoration-none" onclick=del_tag(this)>&times;</a></span>';
                                 };
                                 echo'</small>
                             </div>
@@ -66,11 +65,11 @@ switch ($_GET['nav']) {
                                 <label>text content</label>
                                 <textarea class="form-control" rows="3">'.$row['content'].'</textarea>
                             </div>
-                            <button type="submit" class="btn btn-secondary">Submit</button>
+                            <button type="submit" class="btn btn-sm btn-secondary">Submit</button>
+                            <button type="submit" class="btn btn-sm btn-danger" onclick=del_work(this)>Delete</button>
                         </div>
                         </div>
                     </div>
-                    </form>
                 </div>
                 </div>
             </div>
@@ -78,6 +77,19 @@ switch ($_GET['nav']) {
             ';
         }
         echo '</div>';
+        break;
+    case 'mywork_update':
+        $id = substr($_POST['id'],1,strlen($_POST['id']));
+        $sql='UPDATE 02_works_img SET title="'.$_POST['title'].'", tag="'.$_POST['tags'].'", content="'.$_POST['content'].'", date=NOW() WHERE id="'.$id.'"';
+        $result = $db->query($sql);
+
+        if($result) echo date('Y-m-d H:i:s');
+        break;
+    case 'mywork_delete':
+        $id = substr($_POST['id'],1,strlen($_POST['id']));
+        $sql='DELETE FROM 02_works_img WHERE id='.$id;
+        $result=$db->query($sql);
+        if($result) echo 'deleted';
         break;
     case 'mypage':
         echo 'mypage';

@@ -20,10 +20,62 @@
   <title>Hello, world!</title>
 
   <style>
-  .modal-backdrop.show {
-  opacity: .5
-  ;
-}
+    * {
+        font-family: 'Noto Sans TC', sans-serif;
+    }
+
+    .info{
+      border: 1px solid #000;
+      position: fixed;
+      top: 12.5vh;
+      right: calc(25% - 315px);
+      background: #fff;
+      height: 75vh;
+      width:calc(25% - 100px);
+    }
+
+    .user{
+      border: 1px solid #000;
+      position: fixed;
+      top: 25vh;
+      left: calc(25% - 315px);
+      background: #fff;
+      height: 50vh;
+      width:calc(25% - 100px);
+    }
+
+
+    /* @media (max-width: 1199.98px) {
+      .info{
+      position: fixed;
+      right: calc(25% - 250px);
+      width:200px;
+      font-size: 0.5rem;
+      }
+      .user{
+      position: fixed;
+      left: calc(25% - 250px);
+      width:200px;
+      font-size: 0.5rem;
+      }
+    } */
+
+    @media (max-width: 991.98px) {
+      .info{
+      position: static;
+      width:100%;
+      height: inherit;
+      font-size: 1rem;
+      }
+      .user{
+      position: static;
+      width:100%;
+      height: inherit;
+      font-size: 1rem;
+      }
+    }
+
+
   </style>
 </head>
 
@@ -76,6 +128,7 @@
   <script src="./js/bootstrap.min.js"></script>
   <!-- masonry -->
   <script src="./js/masonry.pkgd.js"></script>
+  <img src="" alt="">
   <script>
     $.getJSON('explore_api.php')
       .done((e)=>{
@@ -96,23 +149,29 @@
           <div class="modal" id="e_c${+i}" tabindex="-1" style="background-color:rgb(255,255,255,0.5)">
             <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">作品資訊</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
+                  <div class="modal-header">
+                      <h5 class="modal-title">${data[i].title}</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  </div>
+                  <div class="modal-body">
                     <div class="container-fluid">
-                        <div class="row">
-                        <div class="col-md-6 col-12">
-                            <img src="" class="card-img-top w-100">123
+                      <div class="row">
+                        <div class="col-12">
+                            <img src="${data[i].img}" class=" card-img-top card-img-size" style="object-fit:cover">
                         </div>
-                        </div>
+                      </div>
                     </div>
-                    </form>
-                </div>
+                    <div class="container ">
+                      <div class="row">
+                        <div class="info rounded fixed my-md-0 my-3 p-2">
+                          <h5>${data[i].title}</h5>
+                          <p>${data[i].content}</p>
+                        </div>
+                        <div class="user rounded fixed my-md-0 my-3 p-2">123
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
             </div>
             </div>
@@ -162,6 +221,11 @@
         $('.cardIcon').hide();
         $('.card a').on('mouseover',function(){$(this).siblings().eq(0).children().show()})
         $('.card a').on('mouseleave',function(){$(this).siblings().eq(0).children().hide()})
+
+
+
+      //   $('.modal').on('shown.bs.modal', function (e) {
+
       })
   </script>
 </body>
