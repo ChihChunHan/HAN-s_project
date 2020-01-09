@@ -11,7 +11,10 @@
   <!-- google font -->
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC:100,300,400,500,700,900&display=swap&subset=chinese-traditional" rel="stylesheet">
   <!-- tags input -->
-  <link rel="stylesheet" href="./css/bootstrap-tagsinput.css">
+  <link rel="stylesheet" href="./css/tagsinput.css">
+  <!-- UPPY -->
+  <link href="https://transloadit.edgly.net/releases/uppy/v1.7.0/uppy.min.css" rel="stylesheet">
+
 
   <link rel="stylesheet" href="./css/style.css">
   <title>Hello, world!</title>
@@ -30,7 +33,7 @@
     <div class="row">
       <div class="container bg-white">
         <nav class="navbar navbar-expand-lg navbar-light">
-          <a class="navbar-brand" href="explore.php">LOGO</a>
+          <a class="navbar-brand" href="explore.php">Gathere</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -39,6 +42,9 @@
             <ul class="navbar-nav mr-auto">
               <li class="nav-item">
                 <a class="nav-link" href="explore.php">探索</a>
+              </li>
+              <li class="nav-item d-lg-none">
+                <a class="nav-link" href="#">新增作品</a>
               </li>
               <li class="nav-item d-lg-none">
                 <a class="nav-link" href="#">作品管理</a>
@@ -50,7 +56,7 @@
                 <a class="nav-link" href="#">設定</a>
               </li>
             </ul>
-                <form class="form-inline my-2 my-lg-0 w-75">
+                <form action="explore.php" method="get" class="form-inline my-2 my-lg-0 w-75">
                   <input class="form-control mr-sm-2 w-75 ml-auto" type="search" placeholder="Search" aria-label="Search">
                   <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
                 </form>
@@ -80,6 +86,7 @@
           <a href="#" class="col py-2 text-reset mywork">作品管理</a>
           <a href="#" class="col py-2 text-reset mypage">我的主頁</a>
           <a href="#" class="col py-2 text-reset setting">設定</a>
+          <a href="#" class="col py-2 text-reset upload ">新增作品</a>
         </div>
       </div>
       <div class="col-lg-10 col-12 h-100" id="main">
@@ -92,14 +99,14 @@
   <script src="./js/popper.min.js"></script>
   <script src="./js/bootstrap.min.js"></script>
   <!-- tags input -->
-  <script src="./js/bootstrap-tagsinput.js"></script>  
-  <!-- SWAL2 -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-
+  <script src="./js/tagsinput.js"></script>  
+  <!-- uppy -->
+  <script src="./js/uppy.min.js"></script>
+  <script src="https://transloadit.edgly.net/releases/uppy/locales/v1.10.0/zh_TW.min.js"></script>
 
   <script>
     $(document).ready(()=>{
-      showData('mywork');
+      showData('upload');
       // adjustImg()
     })
 
@@ -126,6 +133,11 @@
     $('.setting').on('click',(e)=>{
       e.preventDefault();
       showData('setting');
+    })
+
+    $('.upload').on('click',(e)=>{
+      e.preventDefault();
+      showData('upload');
     })
 
     // ajax更新資料
