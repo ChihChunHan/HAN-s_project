@@ -99,33 +99,49 @@ switch ($_GET['nav']) {
         break;
     case 'upload':
         echo '
-        <div id="drag-drop-area"></div>
+        <div class="container-fluid">
+            <form action="upload_api.php" method="post">
+                <div id="myId" class="dropzone mx-auto mb-5"></div>
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">title</span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">tags</span>
+                        </div>
+                        <input type="text" id="tagsinput" data-role="tagsinput" value="jQuery,Script,Net">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">content</span>
+                        </div>
+                        <textarea class="form-control" aria-label="With textarea"></textarea>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
 
         <script>
-            var uppy = Uppy.Core({
-                debug: true,
-                locale: Uppy.locales.zh_TW,
-                meta: { username: "John" },
-            })
-            .use(Uppy.Dashboard, {
-                inline: true,
-                target: "#drag-drop-area",
-                metaFields: [
-                    { id: "name", name: "Name", placeholder: "file name" },
-                    { id: "tags", name: "Tags", placeholder: "tagname..." },
-                    { id: "infomation", name: "Infomation", placeholder: "describe what the image is about" },
-                ],
-            })
-            .use(Uppy.Tus, {endpoint: "https://master.tus.io/files/"})
+        
+            var myDropzone = new Dropzone("#myId", { 
+                url: "upload_api.php",
+                dictDefaultMessage: "把檔案拉到這裡就可以上傳",
+                paramName: "photo"
+            });
 
-            uppy.on("upload-success", (file, response) => {
-                console.log(file,file.name,file.id, response.uploadURL)
-                })
-
-            uppy.on("dashboard:file-edit-complete", () => {
-                $("input[data-role=tagsinput], select[multiple][data-role=tagsinput]").tagsinput();
-                })
+            $("#tagsinput").tagsinput("refresh");
         </script>
+
+        
         ';
         break;
     default:

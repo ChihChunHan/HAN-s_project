@@ -23,6 +23,12 @@
     * {
         font-family: 'Noto Sans TC', sans-serif;
     }
+
+    .dropzone{
+      border: 1px solid #000;
+      width: 200px;
+      height: 200px;
+    }
   </style>
 </head>
 
@@ -93,6 +99,7 @@
       </div>
     </div>
   </div>
+
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="./js/jquery-3.4.1.min.js"></script>
@@ -100,9 +107,8 @@
   <script src="./js/bootstrap.min.js"></script>
   <!-- tags input -->
   <script src="./js/tagsinput.js"></script>  
-  <!-- uppy -->
-  <script src="./js/uppy.min.js"></script>
-  <script src="https://transloadit.edgly.net/releases/uppy/locales/v1.10.0/zh_TW.min.js"></script>
+
+  <script src="./js/dropzone.js"></script>
 
   <script>
     $(document).ready(()=>{
@@ -120,6 +126,12 @@
         })
     }
 
+    function swichNav(nav){
+      $.post('dashboard_api.php?nav='+nav,function(e){
+          $('#main').html(e)
+        })
+    }
+
     $('.mywork').on('click',(e)=>{
       e.preventDefault();
       showData('mywork');
@@ -127,17 +139,17 @@
 
     $('.mypage').on('click',(e)=>{
       e.preventDefault();
-      showData('mypage');
+      swichNav('mypage');
     })
 
     $('.setting').on('click',(e)=>{
       e.preventDefault();
-      showData('setting');
+      swichNav('setting');
     })
 
     $('.upload').on('click',(e)=>{
       e.preventDefault();
-      showData('upload');
+      swichNav('upload');
     })
 
     // ajax更新資料

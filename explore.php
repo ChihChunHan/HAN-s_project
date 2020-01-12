@@ -168,7 +168,7 @@ else {echo "$.getJSON('explore_api.php?do=init').done(showCard)";}
                         </div>
                         <div class="user fixed my-md-0 my-3 p-2">
                           
-                          <div class="row justify-content-start align-items-center flex-column flex-xl-row flex-nowrap">
+                          <div class="row justify-content-center align-items-center flex-column flex-xl-row flex-nowrap">
                             <div class="col">
                               <div class="h-100 d-flex flex-xl-column flex-row justify-content-center align-items-center">
                                 <div class="mr-3 mr-xl-0 userphoto"></div>
@@ -182,7 +182,7 @@ else {echo "$.getJSON('explore_api.php?do=init').done(showCard)";}
                                 </div>
                               </div>
                             </div>
-                            <div class="col-auto d-flex align-items-center p-0 mr-xl-5">
+                            <div class="col-auto d-flex align-items-center p-0 mr-xl-4">
                               <div class="row flex-xl-column flex-row justify-content-center align-items-center">
                                 <div class="col-auto m-3 bg-white border border-dark rounded-circle" style="width:50px;height:50px"></div>
                                 <div class="col-auto m-3 bg-white border border-dark rounded-circle" style="width:50px;height:50px"></div>
