@@ -44,6 +44,26 @@
       width: 200px;
       height: 200px;
     }
+
+    .kv-avatar .krajee-default.file-preview-frame,.kv-avatar .krajee-default.file-preview-frame:hover {
+    margin: 0;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    text-align: center;
+    }
+    .kv-avatar {
+        display: inline-block;
+    }
+    .kv-avatar .file-input {
+        display: table-cell;
+        width: 213px;
+    }
+    .kv-reqd {
+        color: red;
+        font-family: monospace;
+        font-weight: normal;
+    }
   </style>
 </head>
 
@@ -72,9 +92,6 @@
               </li>
               <li class="nav-item d-lg-none">
                 <a class="nav-link" href="#">我的主頁</a>
-              </li>
-              <li class="nav-item d-lg-none">
-                <a class="nav-link" href="#">設定</a>
               </li>
             </ul>
                 <form action="explore.php" method="get" class="form-inline my-2 my-lg-0 w-75">
@@ -106,11 +123,59 @@
         <div class="row flex-column">
           <a href="#" class="col py-2 text-reset mywork">作品管理</a>
           <a href="#" class="col py-2 text-reset mypage">我的主頁</a>
-          <a href="#" class="col py-2 text-reset setting">設定</a>
           <a href="#" class="col py-2 text-reset upload ">新增作品</a>
         </div>
       </div>
       <div class="col-lg-10 col-12 h-100" id="main">
+
+      <form class="form form-vertical" action="dashboard_api.php?nav=upload" method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-lg-4 col-12 text-center">
+                <div class="kv-avatar ">
+                    <div class="file-loading">
+                        <input id="avatar-1" name="avatar-1" type="file" required>
+                    </div>
+                </div>
+                <div class="kv-avatar-hint">
+                    <small>Select file < 2mb</small>
+                </div>
+            </div>
+            <div class="col-lg-8 col-12">
+                <div class="row">
+                    <div class="col-12">
+                      <div class="form-group">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" >作品標題</span>
+                            </div>
+                            <input type="text" name="title" class="form-control" placeholder="Username">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-group">
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                              <span class="input-group-text">作品標籤</span>
+                          </div>
+                          <input type="text" name="tag" id="tagsinput" data-role="tagsinput" value="jQuery,Script,Net">
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">作品說明</span>
+                        </div>
+                        <textarea class="form-control" name="content"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div id="kv-avatar-errors-1" class="center-block" style="width:100%;display:none"></div>
+
       </div>
     </div>
   </div>
@@ -132,13 +197,32 @@
   <script src="kartik-v-bootstrap/themes/explorer-fas/theme.js" type="text/javascript" ></script>
   <script src="kartik-v-bootstrap/themes/fas/theme.js" type="text/javascript" ></script>
   <script>
+
+    // bs File input
+
+    $("#avatar-1").fileinput({
+        language: "zh-TW",
+        overwriteInitial: true,
+        maxFileSize: 5000,
+        showClose: false,
+        showCaption: false,
+        browseLabel: '',
+        removeLabel: '',
+        browseIcon: '<i class="fas fa-folder-open"></i>',
+        removeIcon: '<i class="fas fa-times"></i>',
+        removeTitle: 'Cancel or reset changes',
+        elErrorContainer: '#kv-avatar-errors-1',
+        msgErrorClass: 'alert alert-block alert-danger',
+        defaultPreviewContent: '<img src="/samples/default-avatar-male.png" alt="Your Avatar">',
+        allowedFileExtensions: ["jpg", "png", "gif"]
+    });
+
     var getUrlString = location.href;
     var url = new URL(getUrlString);
 
-
     // init
     $(document).ready(()=>{
-      showData('mywork')
+      // showData('mywork')
       // adjustImg()
     })
 
@@ -175,7 +259,7 @@
 
     $('.upload').on('click',(e)=>{
       e.preventDefault();
-      swichNav('upload');
+      swichNav('new_work');
     })
 
     // ajax更新資料

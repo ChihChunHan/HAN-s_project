@@ -164,53 +164,24 @@ switch ($_GET['nav']) {
         $result = $db->query($sql);
         header('location:dashboard.php');
         break;
+    case 'new_work':
+
+        break;
     case 'upload':
-        echo '
-        <div class="container-fluid">
-            <form action="upload_api.php" method="post">
-                <div id="myId" class="dropzone mx-auto mb-5"></div>
-                <div class="form-group">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">title</span>
-                        </div>
-                        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">tags</span>
-                        </div>
-                        <input type="text" id="tagsinput" data-role="tagsinput" value="jQuery,Script,Net">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">content</span>
-                        </div>
-                        <textarea class="form-control" aria-label="With textarea"></textarea>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary">修改</button>
-                <button type="reset" class="btn btn-primary">重置</button>
-            </form>
-        </div>
-
-        <script>
+        $images = $_FILES['avatar-1']; // 獲取上傳的文件
+        $filenames = $images['name']; // 文件名
+        $filetypes = $images['type']; // 文件類型
+        $filesizes = $images['size']; // 文件大小
+        $filetmps = $images['tmp_name']; // 文件臨時路徑
+        $url='images/works_upload/'.$_SESSION['user'].'_'.time().'_'.$_POST['title'];
+        // upload file
+        copy($filetmps,$url);
+        // delete file
+        unlink($filetmps);
         
-            var myDropzone = new Dropzone("#myId", { 
-                url: "upload_api.php",
-                dictDefaultMessage: "把檔案拉到這裡就可以上傳",
-                paramName: "photo"
-            });
-
-            $("#tagsinput").tagsinput("refresh");
-        </script>
-
-        
-        ';
+        $sql = 'INSERT INTO 02_works_img (img, acc, title, tag, content, date) VALUES ("'.$url.'","'.$_SESSION['user'].'","'.$_POST['title'].'","'.$_POST['tag'].'","'.$_POST['content'].'",NOW())';
+        $result = $db->query($sql);
+        header('location:dashboard.php');
         break;
     default:
         # code...
