@@ -21,7 +21,7 @@
     <div class="row vh-100">
       <div class="col-lg-5 col-2 d-md-flex d-none align-items-center">
         <a href="explore.html" class="mx-auto text-reset">
-          <h1>gaTheRe</h1>
+          <h1>GETHERE</h1>
         </a>
       </div>
       <div class="col-1 d-md-flex d-none align-items-center">
@@ -36,11 +36,11 @@
             <h1 class="card-title mt-3">sing In</h1>
           </div>
           <div class="card-body">
-            <form class="needs-validation" novalidate>
+            <form action="signIn_api.php" method="POST" class="needs-validation" novalidate>
               <div class="form-row">
                 <div class="col-12 pb-2">
                   <label for="validationCustom01">account</label>
-                  <input type="text" class="form-control" id="validationCustom01" placeholder="plz keyin your acc" required>
+                  <input type="text" name="acc" class="form-control" id="validationCustom01" placeholder="plz keyin your acc" required>
                   <div class="invalid-feedback">
                     Please provide a valid city.
                   </div>
@@ -49,7 +49,7 @@
               <div class="form-row">
                 <div class="col-12 py-2">
                   <label for="validationCustom03">passward</label>
-                  <input type="text" class="form-control" id="validationCustom03" placeholder="plz keyin your psw" required>
+                  <input type="text" name="psw" class="form-control" id="validationCustom03" placeholder="plz keyin your psw" required>
                   <div class="invalid-feedback">
                     Please provide a valid city.
                   </div>

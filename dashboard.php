@@ -1,3 +1,13 @@
+<?php
+  session_start();
+
+  if(empty($_SESSION['user'])){
+      header("Location: explore.php"); 
+      exit;
+  }
+
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -14,6 +24,11 @@
   <link rel="stylesheet" href="./css/tagsinput.css">
   <!-- UPPY -->
   <link href="https://transloadit.edgly.net/releases/uppy/v1.7.0/uppy.min.css" rel="stylesheet">
+  <!-- font-awesome -->
+  <link rel="stylesheet" href="./css/all.min.css">
+  <!-- bs file input -->
+  <link rel="stylesheet" href="kartik-v-bootstrap/css/fileinput.css">
+  <link rel="stylesheet" href="kartik-v-bootstrap/themes/explorer-fa/theme.css">
 
 
   <link rel="stylesheet" href="./css/style.css">
@@ -63,8 +78,8 @@
               </li>
             </ul>
                 <form action="explore.php" method="get" class="form-inline my-2 my-lg-0 w-75">
-                  <input class="form-control mr-sm-2 w-75 ml-auto" type="search" placeholder="Search" aria-label="Search">
-                  <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
+                  <input class="form-control form-control-sm mr-sm-2 w-75 ml-auto" type="search" placeholder="Search" aria-label="Search">
+                  <button class="btn btn-sm btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
                 </form>
           </div>
         </nav>
@@ -110,9 +125,20 @@
 
   <script src="./js/dropzone.js"></script>
 
+  <!-- bs4 file input| -->
+  <script src="kartik-v-bootstrap/js/plugins/sortable.js" type="text/javascript"></script>
+  <script src="kartik-v-bootstrap/js/fileinput.js" type="text/javascript"></script>
+  <script src="kartik-v-bootstrap/js/locales/zh-TW.js" type="text/javascript"></script>
+  <script src="kartik-v-bootstrap/themes/explorer-fas/theme.js" type="text/javascript" ></script>
+  <script src="kartik-v-bootstrap/themes/fas/theme.js" type="text/javascript" ></script>
   <script>
+    var getUrlString = location.href;
+    var url = new URL(getUrlString);
+
+
+    // init
     $(document).ready(()=>{
-      showData('upload');
+      showData('mywork')
       // adjustImg()
     })
 
@@ -120,7 +146,7 @@
     function showData(nav){
       $.post('dashboard_api.php?nav='+nav,function(e){
           $('#main').html(e)
-          $('button[type="submit"]').click(update)
+          $('#card_submit').click(update)
           adjustImg()
           $('.new_tag').on('keyup',addtag)
         })
@@ -225,8 +251,6 @@
     }
 
     $(window).resize(adjustImg)
-
-
 
   </script>
 </body>
