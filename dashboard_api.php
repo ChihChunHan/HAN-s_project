@@ -13,10 +13,10 @@ switch ($_GET['nav']) {
         echo '<div class="row mb-4">';  // 卡片群組開頭
         foreach ($rows as $row) {
             // 處裡tag
-            $tags = mb_split("\s", $row['tag']);
+            $tags = mb_split(",", $row['tag']);
             //卡片主體
             echo '
-            <a class="col-lg-3 col-md-4 col-12 mb-4 text-reset" data-toggle="modal" data-backdrop="false" href="#c' . $row['id'] . '">
+            <a class="col-lg-3 col-md-4 col-12 mb-4 text-reset" data-toggle="modal" data-backdrop="ture" href="#c' . $row['id'] . '">
             <div class="card border-0 shadow">
                 <img src="' . $row['img'] . '" class=" card-img-top card-img-size" style="object-fit:cover">
                 <div class="card-body">
@@ -52,23 +52,18 @@ switch ($_GET['nav']) {
                         </div>
                         <div class="col-md-6 col-12">
                             <div class="form-group">
-                            <label>title</label>
-                            <input type="text" class="form-control" value="' . $row['title'] . '">
+                                <label>title</label>
+                                <input type="text" class="form-control" value="' . $row['title'] . '">
                             </div>
                             <div class="form-group">
-                                <label>tag</label>
-                                <input type="text" class="form-control new_tag">
-                                <small class="form-text text-muted tagzone">';
-            foreach ($tags as $tag) {  // 輸出tag
-                echo '<span class="badge badge-secondary mr-1"><span>' . $tag . '</span><a href="#" class="text-reset text-decoration-none" onclick=del_tag(this)>&times;</a></span>';
-            };
-            echo '</small>
+                                <label>tag</label><br>
+                                <input type="text" name="tag" class="tagsinput" data-role="tagsinput" value="'. $row['tag'] .'">
                             </div>
                             <div class="form-group">
                                 <label>text content</label>
                                 <textarea class="form-control" rows="3">' . $row['content'] . '</textarea>
                             </div>
-                            <button type="submit" id="card_submit" class="btn btn-sm btn-secondary">Submit</button>
+                            <button type="submit" class="btn btn-sm btn-secondary card_submit">Submit</button>
                             <button type="submit" class="btn btn-sm btn-danger" onclick=del_work(this)>Delete</button>
                         </div>
                         </div>
@@ -77,6 +72,9 @@ switch ($_GET['nav']) {
                 </div>
             </div>
             </div>
+            <script>
+            $("input[data-role=tagsinput]").tagsinput()
+            </script>
             ';
         }
         echo '</div>';
@@ -165,7 +163,87 @@ switch ($_GET['nav']) {
         header('location:dashboard.php');
         break;
     case 'new_work':
+        echo '
+            <form class="form form-vertical" action="dashboard_api.php?nav=upload" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-lg-4 col-12 text-center">
+                        <div class="kv-avatar ">
+                            <div class="file-loading">
+                                <input id="avatar-1" name="avatar-1" type="file" required>
+                            </div>
+                        </div>
+                        <div class="kv-avatar-hint">
+                            <small>檔案大小 < 5mb</small>
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-12">
+                        <div class="row">
+                            <div class="col-12">
+                            <div class="form-group">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">作品標題</span>
+                                    </div>
+                                    <input type="text" name="title" class="form-control" placeholder="Username">
+                                </div>
+                            </div>
+                            </div>
+                            <div class="col-12">
+                            <div class="form-group">
+                                <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">作品標籤</span>
+                                </div>
+                                    <div class="tagsinput-box">
+                                        <input type="text" name="tag" id="tagsinput" data-role="tagsinput">
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">作品說明</span>
+                                </div>
+                                <textarea class="form-control" name="content"></textarea>
+                            </div>
+                        </div>
+                        <input type="hidden" name="width" id="width">
+                        <input type="hidden" name="height" id="height">
+                    </div>
+                </div>
+            </form>
+            <div id="kv-avatar-errors-1" class="center-block" style="width:100%;display:none"></div>
+            <script>
+            
+            // bs File input
 
+            $("#avatar-1").fileinput({
+                language: "zh-TW",
+                overwriteInitial: true,
+                maxFileSize: 5000,
+                showClose: false,
+                showCaption: false,
+                browseLabel: "",
+                removeLabel: "",
+                autoOrientImage:false,
+
+                removeTitle: "Cancel or reset changes",
+                elErrorContainer: "#kv-avatar-errors-1",
+                msgErrorClass: "alert alert-block alert-danger",
+                allowedFileExtensions: ["jpg", "png", "gif"]
+            });
+            $("#avatar-1").on("fileimagesloaded", function(event, file, previewId, index, reader) {
+                let width = $(".file-preview-image")[1].width
+                let height = $(".file-preview-image")[1].height
+                $("#width").val(width)
+                $("#height").val(height)
+            });
+
+            $("input[data-role=tagsinput]").tagsinput()
+            </script>
+        ';
         break;
     case 'upload':
         $images = $_FILES['avatar-1']; // 獲取上傳的文件
@@ -179,7 +257,7 @@ switch ($_GET['nav']) {
         // delete file
         unlink($filetmps);
         
-        $sql = 'INSERT INTO 02_works_img (img, acc, title, tag, content, date) VALUES ("'.$url.'","'.$_SESSION['user'].'","'.$_POST['title'].'","'.$_POST['tag'].'","'.$_POST['content'].'",NOW())';
+        $sql = 'INSERT INTO 02_works_img (img, width, height, acc, title, tag, content, date) VALUES ("'.$url.'","'.$_POST['width'].'","'.$_POST['height'].'","'.$_SESSION['user'].'","'.$_POST['title'].'","'.$_POST['tag'].'","'.$_POST['content'].'",NOW())';
         $result = $db->query($sql);
         header('location:dashboard.php');
         break;

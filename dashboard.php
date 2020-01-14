@@ -17,7 +17,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Bootstrap CSS -->
+
   <link rel="stylesheet" href="./css/bootstrap.css">
+  <link rel="stylesheet" href="./css/bootstrap_icon.css">
   <!-- google font -->
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC:100,300,400,500,700,900&display=swap&subset=chinese-traditional" rel="stylesheet">
   <!-- tags input -->
@@ -29,6 +31,8 @@
   <!-- bs file input -->
   <link rel="stylesheet" href="kartik-v-bootstrap/css/fileinput.css">
   <link rel="stylesheet" href="kartik-v-bootstrap/themes/explorer-fa/theme.css">
+
+
 
 
   <link rel="stylesheet" href="./css/style.css">
@@ -64,6 +68,38 @@
         font-family: monospace;
         font-weight: normal;
     }
+
+    .bootstrap-tagsinput {
+      width: 100%;
+      max-width: 100%;
+      line-height: 22px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      height: 65px;
+      cursor: text;    }
+
+      .tagsinput-box{
+          width: 85%
+        }
+
+      @media (max-width: 375px) {.tagsinput-box{width: 69%}}      
+
+      @media (min-width: 375px) {.tagsinput-box{width: 74%}}      
+
+      @media (min-width: 414px) {.tagsinput-box{width: 76%}}
+
+      @media (min-width: 576px) {.tagsinput-box{width: 82%}}
+
+      @media (min-width: 768px) {.tagsinput-box{width: 87%}}
+
+
+      @media (min-width: 992px) {.tagsinput-box{width: 82%}}
+
+      @media (min-width: 1200px) {.tagsinput-box{width: 85%}}
+
+
+
+
   </style>
 </head>
 
@@ -128,53 +164,7 @@
       </div>
       <div class="col-lg-10 col-12 h-100" id="main">
 
-      <form class="form form-vertical" action="dashboard_api.php?nav=upload" method="post" enctype="multipart/form-data">
-        <div class="row">
-            <div class="col-lg-4 col-12 text-center">
-                <div class="kv-avatar ">
-                    <div class="file-loading">
-                        <input id="avatar-1" name="avatar-1" type="file" required>
-                    </div>
-                </div>
-                <div class="kv-avatar-hint">
-                    <small>Select file < 2mb</small>
-                </div>
-            </div>
-            <div class="col-lg-8 col-12">
-                <div class="row">
-                    <div class="col-12">
-                      <div class="form-group">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" >作品標題</span>
-                            </div>
-                            <input type="text" name="title" class="form-control" placeholder="Username">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-12">
-                      <div class="form-group">
-                        <div class="input-group mb-3">
-                          <div class="input-group-prepend">
-                              <span class="input-group-text">作品標籤</span>
-                          </div>
-                          <input type="text" name="tag" id="tagsinput" data-role="tagsinput" value="jQuery,Script,Net">
-                        </div>
-                      </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">作品說明</span>
-                        </div>
-                        <textarea class="form-control" name="content"></textarea>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
-    <div id="kv-avatar-errors-1" class="center-block" style="width:100%;display:none"></div>
+
 
       </div>
     </div>
@@ -198,41 +188,22 @@
   <script src="kartik-v-bootstrap/themes/fas/theme.js" type="text/javascript" ></script>
   <script>
 
-    // bs File input
-
-    $("#avatar-1").fileinput({
-        language: "zh-TW",
-        overwriteInitial: true,
-        maxFileSize: 5000,
-        showClose: false,
-        showCaption: false,
-        browseLabel: '',
-        removeLabel: '',
-        browseIcon: '<i class="fas fa-folder-open"></i>',
-        removeIcon: '<i class="fas fa-times"></i>',
-        removeTitle: 'Cancel or reset changes',
-        elErrorContainer: '#kv-avatar-errors-1',
-        msgErrorClass: 'alert alert-block alert-danger',
-        defaultPreviewContent: '<img src="/samples/default-avatar-male.png" alt="Your Avatar">',
-        allowedFileExtensions: ["jpg", "png", "gif"]
-    });
-
     var getUrlString = location.href;
     var url = new URL(getUrlString);
 
     // init
     $(document).ready(()=>{
-      // showData('mywork')
-      // adjustImg()
+      showData('mywork')
+      adjustImg()
     })
 
     // ajax
     function showData(nav){
       $.post('dashboard_api.php?nav='+nav,function(e){
           $('#main').html(e)
-          $('#card_submit').click(update)
+          $('.card_submit').click(update)
           adjustImg()
-          $('.new_tag').on('keyup',addtag)
+          // $('.new_tag').on('keyup',addtag)
         })
     }
 
@@ -266,20 +237,20 @@
     function update(e) {
       // e.preventDefault()
       let who = $(this).parents(".modal")
+      
+    
       let newdata = {
         id:who.attr('id'),
         title:who.find('input').eq(0).val(),
-        // tag:who.find('span').eq(0),
-        tags:"",
+        tags:$(".tagsinput").val(),
         content:who.find('textarea').eq(0).val()
       }
-
+      console.log(newdata.tags);
       // 處裡tags
       let tag_html=''
-      for (let i = 0; i < who.find('span>span').length; i++) {
-        let tag = who.find('span>span').eq(i).text()
-        if(i==0) newdata.tags+=tag
-        else newdata.tags+= " "+tag
+      let tag_ary=newdata.tags.split(',')
+      for (let i = 0; i < tag_ary.length; i++) {
+        let tag = tag_ary[i]
         tag_html+=`<span class="badge badge-secondary mr-1">${tag}</span>`
       }
       // 動態更新前端
@@ -299,29 +270,29 @@
         })
     }
 
-    // new tag
-    function addtag(e) {
-      if(e.keyCode==32 || e.keyCode==13){
-        if(/\s/.test($(this).val())==false && $(this).val()!=""){
-          $('.tagzone').append(`
-          <span class="badge badge-secondary mr-1"><span>${$(this).val()}</span><a href="#" class="text-reset text-decoration-none" onclick=del_tag(this)>&times;</a></span>
-          `)
-          $(this).val("")
-        }
-        if(/\S/.test($(this).val())==true){
-          let value = $(this).val().replace(/\s+/g,"")
-          $('.tagzone').append(`
-          <span class="badge badge-secondary mr-1"><span>${value}</span><a href="#" class="text-reset text-decoration-none" onclick=del_tag(this)>&times;</a></span>
-          `)
-          $(this).val("")
-        }
-      }
-    }
+    // // new tag
+    // function addtag(e) {
+    //   if(e.keyCode==32 || e.keyCode==13){
+    //     if(/\s/.test($(this).val())==false && $(this).val()!=""){
+    //       $('.tagzone').append(`
+    //       <span class="badge badge-secondary mr-1"><span>${$(this).val()}</span><a href="#" class="text-reset text-decoration-none" onclick=del_tag(this)>&times;</a></span>
+    //       `)
+    //       $(this).val("")
+    //     }
+    //     if(/\S/.test($(this).val())==true){
+    //       let value = $(this).val().replace(/\s+/g,"")
+    //       $('.tagzone').append(`
+    //       <span class="badge badge-secondary mr-1"><span>${value}</span><a href="#" class="text-reset text-decoration-none" onclick=del_tag(this)>&times;</a></span>
+    //       `)
+    //       $(this).val("")
+    //     }
+    //   }
+    // }
 
-    // 刪除tag
-    function del_tag(who) {
-      $(who).parent().remove()
-    }
+    // // 刪除tag
+    // function del_tag(who) {
+    //   $(who).parent().remove()
+    // }
 
     // 卡片圖片符合長寬
 
