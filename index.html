@@ -7,67 +7,41 @@
     <title>Document</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="./css/bootstrap.css">
+    <!-- animate css -->
+    <link rel="stylesheet" href="./css/animate.css">
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="./css/all.min.css">
+
     <style>
-        * {
-            /* transition: 1s */
-        }
+
 
         html,body{
-            height: 100%;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
         }
 
         .logo{
+            width: 70%;
+        }
+
+        .imgbg{
             position: absolute;
-            bottom: -11.5vh;
-            left: 6.5vw;
+            z-index: -99;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
-        .ge,
-        .the,
-        .re{
+        .hide{
+            filter: invert(1);
+        }
+
+        .dot{
             position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
+            background-color: #fff;
+            border-radius: 50%;
         }
-
-        .ge{
-            bottom: 15vh;
-            animation: ge 3s 1.5s;
-        }
-
-        .the{
-            bottom: -12.5vh;
-            animation: the 3s 1.5s;
-        }
-
-        .re{
-            bottom: -35vh;
-            animation: re 3s 1.5s;
-        }
-
-        @keyframes ge {
-            50%{}
-            100%{
-                bottom: -12.5vh;
-                left: 20%;
-            }
-        }
-
-        @keyframes the {
-            50%{}
-            100%{
-                bottom: -12.5vh;
-            }
-        }
-
-        @keyframes re {
-            50%{}
-            100%{
-                bottom: -12.5vh;
-                left: 77.5%;
-            }
-        }
-
 
 
 
@@ -76,10 +50,11 @@
     </style>
 </head>
 <body>
-    <div class="container h-100 d-flex justify-content-around align-items-center">
-        <div class="row" id="logo_box" style="position: relative;width: 100vw;">
-            <div class="anim ge m-2">
-                <svg width="277.722px" height="192px" viewBox="0 0 277.722 192" enable-background="new 0 0 277.722 192" xml:space="preserve" style="">
+    <img class="imgbg wow fadeIn" data-wow-delay="0.5s" src="https://picsum.photos/1920/1080/?random=1">
+    <div class="container h-100 d-flex flex-column justify-content-center align-items-center">
+        <div class="d-flex w-75 flex-column justify-content-center align-items-center wow fadeIn" data-wow-duration="2s" data-wow-delay="1s">
+            <div class="m-1 hide">
+                <svg width="277.722px" height="192px" viewBox="0 0 277.722 192" enable-background="new 0 0 277.722 192" xml:space="preserve" style="transform:scale(0.7)">
                     <g>
                         <path fill="none" stroke="#000000" stroke-width="2" d="M155.29,97.569l-14.652,1.776c-0.222,15.54-0.443,31.524-0.443,49.062
                             v10.879c-17.095,9.768-33.078,14.651-53.725,14.651C35.41,173.938,1,140.193,1,87.136C1,34.966,36.298,1,87.802,1
@@ -96,8 +71,8 @@
                     <style data-made-with="vivus-instant">.pbumUnfS_0{stroke-dasharray:977 979;stroke-dashoffset:978;animation:pbumUnfS_draw 2000ms ease 0ms forwards;}.pbumUnfS_1{stroke-dasharray:702 704;stroke-dashoffset:703;animation:pbumUnfS_draw 2000ms ease 500ms forwards;}.pbumUnfS_2{stroke-dasharray:275 277;stroke-dashoffset:276;animation:pbumUnfS_draw 2000ms ease 1000ms forwards;}@keyframes pbumUnfS_draw{100%{stroke-dashoffset:0;}}@keyframes pbumUnfS_fade{0%{stroke-opacity:1;}94.44444444444444%{stroke-opacity:1;}100%{stroke-opacity:0;}}</style></svg>
                     
             </div>
-            <div class="anim the m-2">
-                <svg version="1.1" id="åå±¤_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="354.974px" height="203.621px" viewBox="0 0 354.974 203.621" enable-background="new 0 0 354.974 203.621" xml:space="preserve" style="">
+            <div class="m-1 hide">
+                <svg width="354.974px" height="203.621px" viewBox="0 0 354.974 203.621" enable-background="new 0 0 354.974 203.621" xml:space="preserve" style="transform:scale(0.7)">
                     <g>
                         <path fill="none" stroke="#000000" stroke-width="2" d="M83.584,168.668c-6.438,9.99-16.872,15.762-31.968,15.762
                             c-20.424,0-31.746-9.99-31.746-32.633c0-7.104,0.222-13.32,0.222-22.201V71.432H1v-7.326l20.646-2.219l9.546-34.854h19.092
@@ -117,8 +92,8 @@
                     <style data-made-with="vivus-instant">.oQtkUFcW_0{stroke-dasharray:507 509;stroke-dashoffset:508;animation:oQtkUFcW_draw 2000ms ease 0ms forwards;}.oQtkUFcW_1{stroke-dasharray:929 931;stroke-dashoffset:930;animation:oQtkUFcW_draw 2000ms ease 333ms forwards;}.oQtkUFcW_2{stroke-dasharray:702 704;stroke-dashoffset:703;animation:oQtkUFcW_draw 2000ms ease 666ms forwards;}.oQtkUFcW_3{stroke-dasharray:353 355;stroke-dashoffset:354;animation:oQtkUFcW_draw 2000ms ease 1000ms forwards;}@keyframes oQtkUFcW_draw{100%{stroke-dashoffset:0;}}@keyframes oQtkUFcW_fade{0%{stroke-opacity:1;}94.44444444444444%{stroke-opacity:1;}100%{stroke-opacity:0;}}</style></svg>
                     
             </div>
-            <div class="anim re m-2">
-                <svg version="1.1" id="åå±¤_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="220.227px" height="145.591px" viewBox="0 0 220.227 145.591" enable-background="new 0 0 220.227 145.591" xml:space="preserve" style="">
+            <div class="m-1 hide">
+                <svg width="220.227px" height="145.591px" viewBox="0 0 220.227 145.591" enable-background="new 0 0 220.227 145.591" xml:space="preserve" style="transform:scale(0.7)">
                     <g>
                         <path fill="none" stroke="#000000" stroke-width="2" d="M48.729,35.078C55.834,13.766,70.708,2,84.027,2
                             c9.324,0,17.316,3.773,19.98,14.207c-0.666,9.99-4.884,16.873-15.318,16.873c-7.326,0-11.988-4.219-17.538-10.656L68.71,19.76
@@ -134,8 +109,8 @@
                     <style data-made-with="vivus-instant">.NSVIFAlA_0{stroke-dasharray:521 523;stroke-dashoffset:522;animation:NSVIFAlA_draw 2000ms ease 0ms forwards;}.NSVIFAlA_1{stroke-dasharray:702 704;stroke-dashoffset:703;animation:NSVIFAlA_draw 2000ms ease 500ms forwards;}.NSVIFAlA_2{stroke-dasharray:219 221;stroke-dashoffset:220;animation:NSVIFAlA_draw 2000ms ease 1000ms forwards;}@keyframes NSVIFAlA_draw{100%{stroke-dashoffset:0;}}@keyframes NSVIFAlA_fade{0%{stroke-opacity:1;}94.44444444444444%{stroke-opacity:1;}100%{stroke-opacity:0;}}</style></svg>
                     
             </div>
-            <img src="./images/gethere.svg" class="logo" alt="" style="display:none">
         </div>
+        <div class="dot"></div>
     </div>
 
 
@@ -145,14 +120,48 @@
     <script src="./js/jquery-3.4.1.min.js"></script>
     <script src="./js/popper.min.js"></script>
     <script src="./js/bootstrap.min.js"></script>
-    <script>
-    setTimeout(()=>{
-        $('.anim').fadeOut()
-    },3250)
 
-    setTimeout(()=>{
-        $(".logo").fadeIn(2000)
-    },3000)
+    <!-- wow.jc -->
+    <script src="js/wow.js"></script>
+
+    <script>
+    $(".hide").hide()
+    $(".imgbg").hide()
+    $(document).ready(()=>{
+        setTimeout(()=>{
+            $(".imgbg").show()  
+        },500)
+        setTimeout(()=>{   
+            $('.hide').show()
+        },1000)
+        setTimeout(()=>{
+            let i=0
+            let dotgrow = setInterval(() => {
+                $('.dot').css({"width":i+"px","height":i+"px"})
+                i=((i+1)*1.2)
+                if(i>calcLength($(window)[0].innerHeight,$(window)[0].innerWidth)) {
+                    $(".imgbg").remove()
+                    $('.dot').remove()
+                    $(".hide").parent().remove()
+                    clearInterval(dotgrow)
+                    $(".container").html(`
+                    <div class="col sence2 d-flex flex-column justify-content-center align-items-center">
+                        <img src="./images/gethere.svg" class="logo wow fadeInUp" data-wow-delay="1s">
+                        <a class="mt-5 btn border wow fadeInUp" data-wow-delay="1.6s" href="explore.php">開始探索</a>
+                    </div>
+                    `)
+                }
+            }, 10);
+        },4000)
+    })
+
+    // Animation
+    new WOW().init();
+
+    function calcLength(a,b) {
+        return Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2))
+    }
+
     </script>
 </body>
 </html>
