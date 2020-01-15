@@ -10,7 +10,6 @@ if ($_POST['acc'] == $rows[0]['acc'] && $_POST['psw'] == $rows[0]['psw']) {
     session_start();
     $_SESSION['user'] = $rows[0]['acc'];
     echo "<script>
-    alert('歡迎登入');
     document.location.href='explore.php';
     </script>";
     $_SESSION['logincount']++;

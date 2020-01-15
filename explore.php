@@ -1,8 +1,10 @@
 <?php
 session_start();
 $db = new PDO('mysql:host=127.0.0.1;dbname=s1080401;charset=utf8', 'root', '');
-$sql = 'SELECT * FROM 03_user_info WHERE acc LIKE "'.$_SESSION['user'].'"';
-$rows = $db->query($sql)->fetchAll();
+if(!empty($_SESSION['user'])){
+  $sql = 'SELECT * FROM 03_user_info WHERE acc ="'.$_SESSION['user'].'"';
+  $rows = $db->query($sql)->fetchAll();
+}
 ?>
 
 <!doctype html>
@@ -17,11 +19,14 @@ $rows = $db->query($sql)->fetchAll();
   <link rel="stylesheet" href="./css/bootstrap.css">
 
   <!-- google font -->
-  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC:100,300,400,500,700,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Serif+TC:200,300,400,500,600,700,900&display=swap" rel="stylesheet">
 
   <!-- icon -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <title>gallery</title>
+
+  <!-- font-awesome -->
+  <link rel="stylesheet" href="./css/all.min.css">
 
   <!-- animate css -->
   <link rel="stylesheet" href="./css/animate.css">
@@ -30,8 +35,8 @@ $rows = $db->query($sql)->fetchAll();
 
 
   <style>
-    * {
-        font-family: 'Noto Sans TC', sans-serif;
+    *{
+      font-family: 'Noto Serif TC', serif;
     }
 
     .info{
@@ -67,10 +72,8 @@ $rows = $db->query($sql)->fetchAll();
 
 
     .userphoto{
-      background-color: #000;
       width: 150px;
       height: 150px;
-      border: 1px solid #000;
       border-radius: 75px;
     }
 
@@ -90,27 +93,41 @@ $rows = $db->query($sql)->fetchAll();
       }
     }
 
+    .icon{
+      transition: .35s
+    }
+
+    .icon:hover{
+      transform: scale(1.3);
+      cursor: pointer
+    }
 
   </style>
 </head>
 
 <body>
   <!-- nav-bar -->
-  <div class="container-fluid bg-white fixed-top ">
+  <div class="container-fluid bg-white fixed-top wow fadeInUp">
     <!-- top-nav-bar -->
     <div class="row">
       <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light">
-          <a class="navbar-brand" href="explore.php">Gathere</a>
+          <a class="navbar-brand" href="explore.php" style="font-weight: 700">Gathere</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-              <li class="nav-item" style="width: 100px">
-                <a class="nav-link" href="mypage.html?id=<?=$rows[0]['acc']?>">我的主頁</a>
-              </li>
+              <?php
+              if(!empty($_SESSION['user'])){
+                echo '
+                <li class="nav-item" style="width: 100px">
+                <a class="nav-link" href="mypage.html?id='.$rows[0]["acc"].'">我的主頁</a>
+                </li>
+                ';
+              }
+              ?>
             </ul>
             <!-- signIN -->
             <?php
@@ -175,9 +192,9 @@ $rows = $db->query($sql)->fetchAll();
   <script src="./js/bootstrap.min.js"></script>
   <!-- masonry -->
   <script src="./js/masonry.pkgd.js"></script>
+  
   <!-- wow.jc -->
   <script src="js/wow.js"></script>
-
   <script>
     $(window).scrollTop(0)
 
@@ -223,7 +240,7 @@ else {echo "$.getJSON('explore_api.php').done((e)=>{
           <div class="grid-item ${gridclass} wow fadeInUp" data-wow-delay="${0.5+i/5}s">
             <div class="card border-0" style="width: 200px;">
               <a href="#e_c${+i}" data-toggle="modal" data-backdrop="true">
-              <img src="${data[i].img}" class="card-img-top" style="${imgcss}">
+              <img src="${data[i].img}" class="card-img-top shadow" style="${imgcss}">
               </a>
               <div class="card-body">
                 <h5 class="card-title m-0 mb-1 ml-n1" style="font-size: 1rem;">${data[i].title}</h5>
@@ -235,32 +252,36 @@ else {echo "$.getJSON('explore_api.php').done((e)=>{
           <div class="modal" id="e_c${+i}" tabindex="-1" style="background-color:rgb(255,255,255,0.5)">
             <div class="modal-dialog modal-dialog-centered mx-auto modal-lg">
                 <div class="modal-content bg-transparent border-0">
-                  <div class="modal-body wow fadeInUp">
-                    <div class="container-fluid ">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline:none">
+                    <span class="bg-light mx-auto border rounded-circle shadow" style="display:block;width:37px;height:37px;line-height:33px" aria-hidden="true">&times;</span>
+                  </button>
+                  <div class="modal-body ">
+                    <div class="container-fluid">
                       <div class="row">
                         <div class="col-12">
-                            <img src="${data[i].img}" class=" card-img-top card-img-size" style="object-fit:cover">
+                            <img src="${data[i].img}" class=" card-img-top card-img-size rounded shadow" style="object-fit:cover">
                         </div>
                       </div>
                     </div>
                   </div>
+                  
                   <div class="col">
                     <div class="row h-100">
-                      <div class="col info fixed my-md-0 my-3 wow fadeInUp">
-                        <div class="col h-75 overflow-auto bg-white border border-dark p-2 rounded mb-3">                          
+                      <div class="col info fixed my-md-0 my-3 ">
+                        <div class="col h-75 overflow-auto bg-white border shadow p-3 rounded mb-3">                          
                           <h5>${data[i].title}</h5>
                           <p>${data[i].content}</p>
                         </div>
-                        <div class="col overflow-auto bg-white border border-dark p-2 rounded tags d-flex align-items-center flex-wrap" style="max-height:10vh">
+                        <div class="col overflow-auto bg-white border shadow p-3 rounded tags d-flex align-items-center flex-wrap" style="max-height:10vh">
                         ${tagStr}
                         </div>
                       </div>
-                      <div class="user fixed my-md-0 my-3 p-2 wow fadeInUp">
+                      <div class="user fixed my-md-0 my-3 p-3 wow ">
                         <div class="row justify-content-center align-items-center flex-column flex-xl-row flex-nowrap">
                           <div class="col">
                             <div class="h-100 d-flex flex-xl-column flex-row justify-content-center align-items-center">
-                              <img src="${data[i].user_img}" class="mr-3 mr-xl-0 userphoto" style="object-fit:cover"></img>
-                              <div class="userinfo bg-white p-2 mt-3 rounded border border-dark" style="width:150px">
+                              <img src="${data[i].user_img}" class="mr-3 mr-xl-0 userphoto border shadow" style="object-fit:cover"></img>
+                              <div class="userinfo bg-white p-3 mt-3 rounded border shadow" style="width:150px">
                                   <p>${data[i].acc}</p>
                                   <p>${data[i].name}</p>
                                 <hr>
@@ -272,9 +293,15 @@ else {echo "$.getJSON('explore_api.php').done((e)=>{
                           </div>
                           <div class="col-auto d-flex align-items-center p-0 mr-xl-4">
                             <div class="row flex-xl-column flex-row justify-content-center align-items-center">
-                              <div class="col-auto m-3 bg-white border border-dark rounded-circle" style="width:50px;height:50px"></div>
-                              <div class="col-auto m-3 bg-white border border-dark rounded-circle" style="width:50px;height:50px"></div>
-                              <div class="col-auto m-3 bg-white border border-dark rounded-circle" style="width:50px;height:50px"></div>
+                              <div class=" col-auto m-3 bg-white border shadow rounded-circle d-flex justify-content-center align-items-center" style="width:50px;height:50px">
+                                <i class="icon fas fa-heart" style="font-size:25px"></i>
+                              </div>
+                              <div class=" col-auto m-3 bg-white border shadow rounded-circle d-flex justify-content-center align-items-center" style="width:50px;height:50px">
+                                <i class="icon fas fa-plus" style="font-size:25px"></i>
+                              </div>
+                              <div class=" col-auto m-3 bg-white border shadow rounded-circle d-flex justify-content-center align-items-center" style="width:50px;height:50px">
+                                <i class="icon fas fa-share" style="font-size:25px"></i>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -299,8 +326,13 @@ else {echo "$.getJSON('explore_api.php').done((e)=>{
 
       }
     
+      $('.modal').on('show.bs.modal',function () {
+
+      })
+
       $('.modal').on('shown.bs.modal',function () {
-        console.log(getScrollbarWidth());
+        // $(".info").hide()
+        // $(".user").hide()
         var t = document.body.getBoundingClientRect();
         if ($(this)[0].scrollHeight > t.height) {$(this).children().css('left',getScrollbarWidth()/2)}
       })

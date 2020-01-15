@@ -32,6 +32,9 @@
   <link rel="stylesheet" href="kartik-v-bootstrap/css/fileinput.css">
   <link rel="stylesheet" href="kartik-v-bootstrap/themes/explorer-fa/theme.css">
 
+  <!-- animate css -->
+  <link rel="stylesheet" href="./css/animate.css">
+
 
 
 
@@ -105,7 +108,7 @@
 
 <body>
   <!-- nav-bar -->
-  <div class="container-fluid fixed-top ">
+  <div class="container-fluid fixed-top wow fadeInUp">
     <!-- top-nav-bar -->
     <div class="row">
       <div class="container bg-white">
@@ -121,13 +124,13 @@
                 <a class="nav-link" href="explore.php">探索</a>
               </li>
               <li class="nav-item d-lg-none">
-                <a class="nav-link" href="#">新增作品</a>
+                <a class="nav-link mywork" href="#">作品管理</a>
               </li>
               <li class="nav-item d-lg-none">
-                <a class="nav-link" href="#">作品管理</a>
+                <a class="nav-link mypage" href="#">我的主頁</a>
               </li>
               <li class="nav-item d-lg-none">
-                <a class="nav-link" href="#">我的主頁</a>
+                <a class="nav-link upload" href="#">新增作品</a>
               </li>
             </ul>
                 <form action="explore.php" method="get" class="form-inline my-2 my-lg-0 w-75">
@@ -154,18 +157,22 @@
   </div>
   <!-- content -->
   <div class="container" style="margin-top: 5rem;">
-    <div class="row">
-      <div class="col-2 d-lg-block d-none">
+    <div class="row wow fadeIn" data-wow-delay="1s">
+      <!-- <div class="col-2 d-lg-block d-none">
         <div class="row flex-column">
           <a href="#" class="col py-2 text-reset mywork">作品管理</a>
           <a href="#" class="col py-2 text-reset mypage">我的主頁</a>
           <a href="#" class="col py-2 text-reset upload ">新增作品</a>
         </div>
+      </div> -->
+      <div class="col-2 d-lg-block d-none">
+        <div class="list-group list-group-flush">
+          <a href="#" class="list-group-item list-group-item-action bg-transparent border-0 mb-2 col py-2 text-reset mywork">作品管理</a>
+          <a href="#" class="list-group-item list-group-item-action bg-transparent border-0 mb-2 col py-2 text-reset mypage">我的主頁</a>
+          <a href="#" class="list-group-item list-group-item-action bg-transparent border-0 mb-2 col py-2 text-reset upload ">新增作品</a>
+        </div>
       </div>
       <div class="col-lg-10 col-12 h-100" id="main">
-
-
-
       </div>
     </div>
   </div>
@@ -179,6 +186,9 @@
   <script src="./js/tagsinput.js"></script>  
 
   <script src="./js/dropzone.js"></script>
+
+  <!-- wow.jc -->
+  <script src="js/wow.js"></script>
 
   <!-- bs4 file input| -->
   <script src="kartik-v-bootstrap/js/plugins/sortable.js" type="text/javascript"></script>
@@ -203,6 +213,8 @@
           $('#main').html(e)
           $('.card_submit').click(update)
           adjustImg()
+          $('#main').hide()
+          $('#main').fadeIn()
           // $('.new_tag').on('keyup',addtag)
         })
     }
@@ -210,27 +222,30 @@
     function swichNav(nav){
       $.post('dashboard_api.php?nav='+nav,function(e){
           $('#main').html(e)
+          $('#main').hide()
+          $('#main').fadeIn()
         })
     }
 
     $('.mywork').on('click',(e)=>{
       e.preventDefault();
       showData('mywork');
+      $(".list-group-item").removeClass('shadow')
+      $(".list-group-item").eq(0).addClass('shadow')
     })
 
     $('.mypage').on('click',(e)=>{
       e.preventDefault();
       swichNav('mypage');
-    })
-
-    $('.setting').on('click',(e)=>{
-      e.preventDefault();
-      swichNav('setting');
+      $(".list-group-item").removeClass('shadow')
+      $(".list-group-item").eq(1).addClass('shadow')
     })
 
     $('.upload').on('click',(e)=>{
       e.preventDefault();
       swichNav('new_work');
+      $(".list-group-item").removeClass('shadow')
+      $(".list-group-item").eq(2).addClass('shadow')
     })
 
     // ajax更新資料
@@ -306,6 +321,9 @@
     }
 
     $(window).resize(adjustImg)
+
+    // Animation
+    new WOW().init();
 
   </script>
 </body>

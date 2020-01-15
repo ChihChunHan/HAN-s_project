@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="./css/animate.css">
     <!-- font-awesome -->
     <link rel="stylesheet" href="./css/all.min.css">
+    <!-- google font -->
+    <link href="https://fonts.googleapis.com/css?family=Noto+Serif+TC:200,300,400,500,600,700,900&display=swap" rel="stylesheet">
 
     <style>
 
@@ -19,6 +21,7 @@
             height: 100vh;
             width: 100vw;
             overflow: hidden;
+            font-family: 'Noto Serif TC', serif;
         }
 
         .logo{
@@ -42,10 +45,24 @@
             background-color: #fff;
             border-radius: 50%;
         }
+        .sloganbox{
+            overflow: hidden;
+            height: 31px;
+            position: relative;
+        }
 
+        .slogan{
+            position: absolute;
+            font-size: 1.3rem;
+            animation: sloganMove 4.5s 1.5s infinite ;
+        }
 
-
-
+        @keyframes sloganMove {
+            0%{top: 0px;}
+            33%{top: -31px;}
+            66%{top: -62px;}
+            100%{top: -93px;}
+        }
 
     </style>
 </head>
@@ -113,9 +130,6 @@
         <div class="dot"></div>
     </div>
 
-
-
-
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="./js/jquery-3.4.1.min.js"></script>
     <script src="./js/popper.min.js"></script>
@@ -145,11 +159,31 @@
                     $(".hide").parent().remove()
                     clearInterval(dotgrow)
                     $(".container").html(`
-                    <div class="col sence2 d-flex flex-column justify-content-center align-items-center">
+                    <div class="sence2 d-flex flex-column justify-content-center align-items-center">
+                        <div class="sloganbox w-100 text-center d-flex justify-content-center align-items-center mb-5 wow fadeInUp" data-wow-delay="1.5s">
+                            <div class="slogan w-100 text-center">
+                                <div class="col-auto">get-here</div>
+                                <div class="col-auto">get-there</div>
+                                <div class="col-auto">gallery</div>
+                                <div class="col-auto">get-here</div>
+                            </div>
+                        </div>
                         <img src="./images/gethere.svg" class="logo wow fadeInUp" data-wow-delay="1s">
-                        <a class="mt-5 btn border wow fadeInUp" data-wow-delay="1.6s" href="explore.php">開始探索</a>
+                        <img src="./images/gethere.svg" class="logo wow fadeOutUp" data-wow-duration="1s" style="display:none">
+                        <a class="mt-5 btn border wow fadeInUp" data-wow-delay="2s">開始探索</a>
                     </div>
                     `)
+                    $("a").click(()=>{
+                        $(".sence2 img").eq(0).hide()
+                        $(".sence2 img").eq(1).show()
+                        $(".slogan").fadeOut(500)
+                        $("a").fadeOut(1000)
+                        setTimeout(()=>{
+                            $(".sence2 img").eq(1).remove()
+                            location.href = "explore.php"
+                        },1000)
+
+                    })
                 }
             }, 10);
         },4000)

@@ -13,15 +13,22 @@
 
   <!-- icon -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- google font -->
+  <link href="https://fonts.googleapis.com/css?family=Noto+Serif+TC:200,300,400,500,600,700,900&display=swap" rel="stylesheet">
+
   <title>Hello, world!</title>
 </head>
 
 <body>
+  <nav class="navbar navbar-light bg-transparent fixed-top">
+    <a class="navbar-brand" href="explore.php" style="font-weight: 700;">Gathere</a>
+  </nav>
   <div class="container">
     <div class="row vh-100">
       <div class="col-lg-5 col-2 d-md-flex d-none align-items-center">
-        <a href="explore.html" class="mx-auto text-reset">
-          <h1>GETHERE</h1>
+        <a href="explore.php" class="mx-auto text-reset">
+          <h1 style="font-weight: 700;">Gethere</h1>
         </a>
       </div>
       <div class="col-1 d-md-flex d-none align-items-center">
@@ -30,28 +37,28 @@
       <div class="col-lg-5 col-md-8 col-12 my-auto">
         <div class="card py-3 h-75 my-auto border-0" style="width: 100%;">
           <div class="card-header bg-white border-0">
-            <a href="explore.html" class="d-md-none text-reset">
-              <h5>GETHERE</h5>
+            <a href="explore.php" class="d-md-none text-reset">
+              <h5 style="font-weight: 700;">Gethere</h5>
             </a>
-            <h1 class="card-title mt-3">sing In</h1>
+            <h1 class="card-title mt-3">登入</h1>
           </div>
           <div class="card-body">
             <form action="signIn_api.php" method="POST" class="needs-validation" novalidate>
               <div class="form-row">
                 <div class="col-12 pb-2">
-                  <label for="validationCustom01">account</label>
-                  <input type="text" name="acc" class="form-control" id="validationCustom01" placeholder="plz keyin your acc" required>
+                  <label for="validationCustom01">帳號</label>
+                  <input type="text" name="acc" class="form-control" id="validationCustom01" placeholder="請輸入帳號" required>
                   <div class="invalid-feedback">
-                    Please provide a valid city.
+                    不可為空白
                   </div>
                 </div>
               </div>
               <div class="form-row">
                 <div class="col-12 py-2">
-                  <label for="validationCustom03">passward</label>
-                  <input type="text" name="psw" class="form-control" id="validationCustom03" placeholder="plz keyin your psw" required>
+                  <label for="validationCustom03">密碼</label>
+                  <input type="text" name="psw" class="form-control" id="validationCustom03" placeholder="請輸入密碼" required>
                   <div class="invalid-feedback">
-                    Please provide a valid city.
+                    不可為空白
                   </div>
                 </div>
               </div>
@@ -59,10 +66,10 @@
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
                   <label class="form-check-label" for="invalidCheck">
-                    Agree to terms and conditions
+                    我同意使用者規範
                   </label>
                   <div class="invalid-feedback">
-                    You must agree before submitting.
+                    必勾選項目
                   </div>
                 </div>
               </div>
